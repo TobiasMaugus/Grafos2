@@ -95,22 +95,22 @@ def imprime_graus(graus):
     #grau minimo e maximo considerando apenas arestas
     grau_min_arestas = min(g[1][0] for g in graus)
     grau_max_arestas = max(g[1][0] for g in graus)
-    print(f"Grau minimo/maximo em relacao ao numero de arestas: {grau_min_arestas}/{grau_max_arestas}")
+    print(f"-   Grau minimo/maximo em relacao ao numero de arestas: {grau_min_arestas} / {grau_max_arestas}")
 
     #grau de entrada minimo e maximo considerando apenas arcos
     grau_entrada_min = min(g[1][1] for g in graus)
     grau_entrada_max = max(g[1][1] for g in graus)
-    print(f"Grau de entrada minimo/maximo em relacao somente ao numero de arcos: {grau_entrada_min}/{grau_entrada_max}")
+    print(f"-   Grau de entrada minimo/maximo em relacao somente ao numero de arcos: {grau_entrada_min} / {grau_entrada_max}")
 
     #grau de saida minimo e maximo considerando apenas arcos
     grau_saida_min = min(g[1][2] for g in graus)
     grau_saida_max = max(g[1][2] for g in graus)
-    print(f"Grau de saida minimo/maximo em relacao somente ao numero de arcos: {grau_saida_min}/{grau_saida_max}")
+    print(f"-   Grau de saida minimo/maximo em relacao somente ao numero de arcos: {grau_saida_min} / {grau_saida_max}")
 
     #grau total (arestas + entrada + saida)
     grau_total_min = min(sum(g[1]) for g in graus)
     grau_total_max = max(sum(g[1]) for g in graus)
-    print(f"Grau total minimo/maximo (grau em relacao a arestas + grau de entrada + grau de saida): {grau_total_min}/{grau_total_max}")
+    print(f"-   Grau total minimo/maximo (grau em relacao a arestas + grau de entrada + grau de saida): {grau_total_min} / {grau_total_max}")
 
 
 def calcula_densidade(NumVertices, NumEdges, NumArcs):
@@ -140,7 +140,7 @@ def dijkstra(start_node, edges, arcs):
                 continue
 
             
-            # Atualiza a distância e o predecessor
+            # Atualiza a distancia e o predecessor
             nova_distancia = distancias[current_node] + t_cost
             if viz not in distancias or nova_distancia < distancias[viz]:
                 distancias[viz] = nova_distancia
@@ -219,26 +219,25 @@ def print_metricas(vertices, edges, arcs, required_vertices, required_edges, req
     graus = calcula_graus(vertices, edges, arcs)
     
     #print de metricas
-    print(f"Quantidade de vértices: {len(vertices)}")
-    print(f"Quantidade de arestas: {len(edges)}")
-    print(f"Quantidade de arcos: {len(arcs)}")
-    print(f"Quantidade de vértices requeridos: {len(required_vertices)}")
-    print(f"Quantidade de arestas requeridas: {len(required_edges)}")
-    print(f"Quantidade de arcos requeridos: {len(required_arcs)}")
-    print(f"Densidade do grafo: {densidade:.4f}")
+    print(f"- Quantidade de vértices: {len(vertices)}")
+    print(f"- Quantidade de arestas: {len(edges)}")
+    print(f"- Quantidade de arcos: {len(arcs)}")
+    print(f"- Quantidade de vértices requeridos: {len(required_vertices)}")
+    print(f"- Quantidade de arestas requeridas: {len(required_edges)}")
+    print(f"- Quantidade de arcos requeridos: {len(required_arcs)}")
+    print(f"- Densidade do grafo: {densidade:.4f}")
     
     imprime_graus(graus)
     
-    print(f"Diâmetro do grafo: {diametro}")
-    print(f"Caminho médio: {caminho_medio:.4f}")
-    print("Intermediação de cada vértice:")
+    print(f"- Diâmetro do grafo: {diametro}")
+    print(f"- Caminho médio: {caminho_medio:.4f}")
+    print("- Intermediação de cada vértice:")
     for v, inter in intermediacao.items():
-        print(f"Vértice {v}: {inter}")
+        print(f"- Vértice {v}: {inter}")
 
 
 #main
 file_path = input("Digite o caminho/nome do arquivo .dat: ")
-file_path = "teste.dat" 
 vertices, edges, arcs, required_vertices, required_edges, required_arcs = read_file(file_path)
 print_metricas(vertices, edges, arcs, required_vertices, required_edges, required_arcs)
 
