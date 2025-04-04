@@ -17,8 +17,10 @@ O programa foi desenvolvido para ler um arquivo (.dat) contendo informações so
 - Diâmetro: a "maior menor" distância presente no grafo.
 
 ## Formato do Arquivo .dat
-- O arquivo de entrada deve seguir o seguinte formato (XX representa um valor inteiro qualquer
-e todo XX deve estar separado de outro por exatamente uma tabulação(TAB)):
+-(XX representa um valor inteiro qualquer e todo XX deve estar separado de outro por exatamente uma tabulação(TAB). - N, E e A são letras (caracteres).  
+- Não se pode ter nada após o último arco).  
+- Todos os arquivos .dat deste repositório estão em formato adequado para teste.  
+- Segue o formato adequado de arquivo:  
 
 Name:           XX  
 Optimal value:  XX  
@@ -33,19 +35,19 @@ Depot Node:     XX
 #Required A:    XX 
 
 ReN.  DEMAND  S. COST  
-XX  XX  XX  
+NXX  XX  XX  
 
 ReE.  From N.  To N.  T. COST  DEMAND  S. COST  
-XX  XX  XX  XX  XX  XX  
+EXX  XX  XX  XX  XX  XX  
 
 EDGE  FROM N.  TO N.  T. COST  
-XX  XX  XX  XX  
+EXX  XX  XX  XX  
 
 ReA.  FROM N.  TO N.  T. COST  DEMAND  S. COST  
-XX  XX  XX  XX  XX  XX  
+AXX  XX  XX  XX  XX  XX  
 
 ARC  FROM N.  TO N.  T. COST  
-XX  XX  XX  XX  
+AXX  XX  XX  XX  
 
 ## Como Usar
 1. Python 3.11 instalado.

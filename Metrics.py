@@ -237,6 +237,7 @@ def print_metricas(vertices, edges, arcs, required_vertices, required_edges, req
 
 
 #main
+print("Leia o READ.ME para colocar o arquivo em formato correto!!!")
 file_path = input("Digite o caminho/nome do arquivo .dat: ")
 vertices, edges, arcs, required_vertices, required_edges, required_arcs = read_file(file_path)
 print_metricas(vertices, edges, arcs, required_vertices, required_edges, required_arcs)
