@@ -17,7 +17,7 @@ O programa foi desenvolvido para ler um arquivo (.dat) contendo informações so
 - Diâmetro: a "maior menor" distância presente no grafo.
 
 ## Formato do Arquivo .dat
--(XX representa um valor inteiro qualquer e todo XX deve estar separado de outro por exatamente uma tabulação(TAB). - N, E e A são letras (caracteres).  
+- (XX representa um valor inteiro qualquer e todo XX deve estar separado de outro por exatamente uma tabulação(TAB). - N, E e A são letras (caracteres).  
 - Não se pode ter nada após o último arco).  
 - Todos os arquivos .dat deste repositório estão em formato adequado para teste.  
 - Segue o formato adequado de arquivo:  
