@@ -28,6 +28,9 @@ def read_file(file_path):
         elif line.startswith("ARC"):
             section = "ARC"
             continue
+        elif line.startswith("Based"):
+            section = "Err"
+            continue
 
         if line and section:
             parts = line.split("\t")
@@ -70,6 +73,9 @@ def read_file(file_path):
                         required_arcs.add((arc, (t_cost, demand, s_cost)))
                 except ValueError:
                     continue
+
+            elif section == "Err":
+                continue
 
     return vertices, edges, arcs, required_vertices, required_edges, required_arcs #todos sao set
 
