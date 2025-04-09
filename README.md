@@ -17,8 +17,8 @@ O programa foi desenvolvido para ler um arquivo (.dat) contendo informações so
 - Diâmetro: a "maior menor" distância presente no grafo.
 
 ## Formato do Arquivo .dat
-- (XX representa um valor inteiro qualquer e todo XX deve estar separado de outro por exatamente uma tabulação(TAB). - N, E e A são letras (caracteres).  
-- Não se pode ter nada após o último arco).  
+- XX representa um valor inteiro qualquer e todo XX deve estar separado de outro por exatamente uma tabulação(TAB). - N, E e A são letras (caracteres).  
+- Não se pode ter nada após o último arco.  
 - Todos os arquivos .dat deste repositório estão em formato adequado para teste.  
 - Segue o formato adequado de arquivo:  
 
@@ -50,9 +50,12 @@ ARC  FROM N.  TO N.  T. COST
 AXX  XX  XX  XX  
 
 ## Como Usar
-1. Python 3.11 instalado.
+1. Python 3.11 instalado caso queira rodar o arquivo Metrics.py
+1.1 Um kernel python válido instalado para executar o arquivo Metrics.ipynb em Jupyter Notebook.
+1.2 Os arquivos Metrics.py e Metrics.ipynb são o mesmo, com a diferença sendo o output (saída de dados),
+que no .py acontece no terminal e no .ipynb acontece por meio de uma tabela (dataframe) da biblioteca Pandas. Então caso queira uma visualização melhor dos dados, rode o arquivo .ipynb  
 2. Execute o programa passando o endereço/nome do arquivo .dat como input no terminal.
-3. O programa irá processar o arquivo e exibir as métricas calculadas como saída no terminal.
+3. O programa irá processar o arquivo e exibir as métricas calculadas como saída.
 
 ## Autores
 - Tobias Maugus Bueno Cougo
