@@ -1,3 +1,4 @@
+import heapq
 def read_file(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         lines = file.readlines()
@@ -28,7 +29,7 @@ def read_file(file_path):
         elif line.startswith("ARC"):
             section = "ARC"
             continue
-        elif line.startswith("Based"):
+        elif line.startswith(("Based", "the", "based", "-1")):
             section = "Err"
             continue
 
@@ -125,50 +126,47 @@ def calcula_densidade(NumVertices, NumEdges, NumArcs):
     densidade = (NumEdges+NumArcs)/(edges_max+arcs_max)
     return densidade
 
-def dijkstra(start_node, edges, arcs):
-    distancias = {start_node: 0}
-    predecessores = {start_node: None}
-    nos_nao_visitados = set([start_node])
-    
-    while nos_nao_visitados:
-        #current node pega o node com a menor distancia registrada/se ainda nao tem dist, ela é infinito
-        current_node = min(nos_nao_visitados, key=lambda node: distancias.get(node, float('inf')))
-        nos_nao_visitados.remove(current_node)
-        #arestas
-        for (u, v), t_cost in edges:
+
+
+def dijkstra(start_node, edges, arcs, vertices):
+    vertices_ids = {v if isinstance(v, int) else v[0] for v in vertices}
+    distancias = {v: float('inf') for v in vertices_ids}
+    distancias[start_node] = 0
+    predecessores = {v: None for v in vertices_ids}
+    heap = [(0, start_node)]
+
+    todos = set()
+    for (u, v), t_cost in edges:
+        todos.add((u, v, t_cost, False)) #aresta
+    for (u, v), t_cost in arcs:
+        todos.add((u, v, t_cost, True)) #arco
+
+    while heap:
+        dist_atual, current_node = heapq.heappop(heap)
+        if dist_atual > distancias[current_node]:
+            continue
+
+        for u, v, t_cost, is_arc in todos:
             if u == current_node:
                 viz = v
-                nova_distancia = distancias[current_node] + t_cost
-            elif v == current_node:
+            elif not is_arc and v == current_node:
                 viz = u
-                nova_distancia = distancias[current_node] + t_cost
             else:
                 continue
 
-            
-            # Atualiza a distancia e o predecessor
-            nova_distancia = distancias[current_node] + t_cost
-            if viz not in distancias or nova_distancia < distancias[viz]:
-                distancias[viz] = nova_distancia
+            nova_dist = dist_atual + t_cost
+            if nova_dist < distancias[viz]:
+                distancias[viz] = nova_dist
                 predecessores[viz] = current_node
-                nos_nao_visitados.add(viz)
-        
-        #arcos
-        for (u, v), t_cost in arcs:
-            if u == current_node:
-                viz = v
-                nova_distancia = distancias[current_node] + t_cost
-                if viz not in distancias or nova_distancia < distancias[viz]:
-                    distancias[viz] = nova_distancia
-                    predecessores[viz] = current_node
-                    nos_nao_visitados.add(viz)
+                heapq.heappush(heap, (nova_dist, viz))
+
     return distancias, predecessores
 
 def matriz_menores_distancias(vertices, edges, arcs):
      matriz_distancias = {}
  
      for v in vertices:
-         distancias, _ = dijkstra(v, edges, arcs)  # Calcula distâncias a partir de v
+         distancias, _ = dijkstra(v, edges, arcs, vertices)  #calcula distancias a partir de v
          matriz_distancias[v] = {u: distancias.get(u, float('inf')) for u in vertices}  
  
      return matriz_distancias
@@ -176,7 +174,7 @@ def matriz_menores_distancias(vertices, edges, arcs):
 def matriz_predecessores(vertices, edges, arcs):
     matriz_predecessores = {}
     for v in vertices:
-        _, predecessores = dijkstra(v, edges, arcs)
+        _, predecessores = dijkstra(v, edges, arcs, vertices)
         matriz_predecessores[v] = {u: predecessores.get(u, None) for u in vertices}  
 
     return matriz_predecessores

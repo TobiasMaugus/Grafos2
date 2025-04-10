@@ -14,7 +14,8 @@ O programa foi desenvolvido para ler um arquivo (.dat) contendo informações so
 - Grau Min/Max dos vértices (quantidade de arestas/quantidade de arcos conectados aos vértices);
 - Intermediação (Número de vezes que um Nó N aparece no caminho mais curto de um nó u qualquer para um nó v qualquer);
 - Caminho Médio: (Somatório de todas as menores distâncias do grafo M)/(n × (n-1)), sendo n a quantidade de vértices no grafo M;
-- Diâmetro: a "maior menor" distância presente no grafo.
+- Diâmetro: a "maior menor" distância presente no grafo.  
+- É importante afirmar que todas as métricas utilizam o "t_cost", ou seja, custo de transporte como peso para arestas e arcos
 
 ## Formato do Arquivo .dat
 - XX representa um valor inteiro qualquer e todo XX deve estar separado de outro por exatamente uma tabulação(TAB).  
@@ -51,13 +52,29 @@ ARC  FROM N.  TO N.  T. COST
 AXX  XX  XX  XX  
 
 ## Como Usar
-**1.** Python 3.11 instalado caso queira rodar o arquivo Metrics.py  
+
+&emsp;Existem 2 arquivos no projeto (`Metrics.py` e `Metrics.ipynb`). Eles são basicamente o mesmo arquivo, com  
+&emsp;a diferença sendo majoritariamente as suas saídas, de modo que o arquivo `Metrics.py` consegue mostrar todas as  
+&emsp;métricas de um único arquivo (informado pelo usuário) via terminal.  
+
+&emsp;Já o arquivo `Metrics.ipynb` lê, por padrão, todos os arquivos que estão dentro da pasta `Testes`, gerando as  
+&emsp;métricas de todos os arquivos e mostrando-as na saída do Jupyter Notebook.  
+
+&emsp;Além disso, o arquivo `Metrics.ipynb` gera uma tabela de Excel com as principais métricas dos arquivos lidos  
+&emsp;(Nessa tabela os únicos graus mostrados são os totais e ela não possui as intermediações dos vértices, pois a  
+&emsp;leitura ficaria muito prejudicada, então caso queira ver os outros tipos de graus e a intermediação, vá até a  
+&emsp;saída do Jupyter Notebook, onde tais métricas são mostradas normalmente.)
+
+&emsp;**1 - Caso queira rodar Metrics.ipynb**
 &emsp;**1.1** Um kernel python válido instalado para executar o arquivo Metrics.ipynb em Jupyter Notebook.  
-&emsp;**1.2** Os arquivos Metrics.py e Metrics.ipynb são o mesmo, com a diferença sendo o output (saída de dados),  
-&emsp;que no .py acontece no terminal e no .ipynb acontece por meio de uma tabela (dataframe) da biblioteca Pandas.  
-&emsp;Então caso queira uma  visualização melhor dos dados, rode o arquivo .ipynb  
-**2.** Execute o programa passando o endereço/nome do arquivo .dat como input no terminal.  
-**3.** O programa irá processar o arquivo e exibir as métricas calculadas como saída.
+&emsp;**1.2** Ter as biliotecas pandas, pathlib, heapq e o pacote openpyxl instalados.
+&emsp;**1.3** Execute o arquivo e as métricas dos arquivos aparecerão no Jupyter Notebook  
+&emsp;e a tabela do Excel será baixada.
+
+**2 - Caso queira rodar Metrycs.py**  
+&emsp;**2.1**Ter Python 3.11 instalado.  
+&emsp;**2.2** Execute o programa passando o endereço/nome do arquivo .dat como input no terminal.  
+&emsp;**2.3** O programa irá processar o arquivo e exibir as métricas calculadas como saída.  
 
 ## Autores
 - Tobias Maugus Bueno Cougo
