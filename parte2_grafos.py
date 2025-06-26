@@ -198,28 +198,54 @@ def custo_total_rotas(rotas, tarefas, matriz_distancias):
         custo_total += custo_rota_especifica(rota, tarefas, matriz_distancias)
     return custo_total
 
-
 def custo_rota_especifica(rota, tarefas, matriz_distancias):
     """
-    Calcula o custo total da rota:
-    - Soma do custo de serviço das tarefas
-    - Soma do custo de deslocamento entre todos os pares consecutivos de nós na rota completa
+    Calcula o custo total da rota no MCARP considerando:
+    - Arcos e arestas requeridos: custo de serviço na 1ª vez, custo de transporte nas vezes seguintes
+    - Vértices requeridos: custo de serviço sempre, custo de transporte normal
+    - Caminhos entre tarefas: custo de transporte sempre
     """
     custo_total = 0
-
-    # Soma custo de serviço das tarefas
-    for tarefa_id in rota['tarefas']:
-        tarefa = tarefas[tarefa_id]
-        custo_total += tarefa['custo_servico']
-
-    # Soma custo de deslocamento na rota completa
     rota_completa = rota['rota_completa']
+    tarefas_ids = rota['tarefas']
+    tarefas_atendidas = set()
+
+    # Soma custo de serviço (só 1x por tarefa requerida)
+    for tarefa_id in tarefas_ids:
+        tarefa = tarefas[tarefa_id]
+        if tarefa_id not in tarefas_atendidas:
+            custo_total += tarefa['custo_servico']
+            tarefas_atendidas.add(tarefa_id)
+
+    # Prepara mapeamento de arcos/arestas requeridos
+    tarefas_por_arco = {}
+    for tid, t in enumerate(tarefas):
+        if t['tipo'] == 'arco':
+            tarefas_por_arco[(t['origem'], t['destino'])] = tid
+        elif t['tipo'] == 'aresta':
+            tarefas_por_arco[(t['origem'], t['destino'])] = tid
+            tarefas_por_arco[(t['destino'], t['origem'])] = tid
+
+    # Soma custo de deslocamento na rota
     for i in range(len(rota_completa) - 1):
         origem = rota_completa[i]
         destino = rota_completa[i + 1]
-        custo_total += matriz_distancias[origem][destino]
+
+        tarefa_id = tarefas_por_arco.get((origem, destino))
+        if tarefa_id is not None and tarefa_id in rota['tarefas']:
+            if tarefa_id in tarefas_atendidas:
+                # Já atendida: custo de transporte
+                custo_total += matriz_distancias[origem][destino]
+            else:
+                # Primeira vez: já somou custo de serviço, ignora transporte
+                tarefas_atendidas.add(tarefa_id)
+                continue
+        else:
+            # Não é tarefa requerida: custo normal
+            custo_total += matriz_distancias[origem][destino]
 
     return custo_total
+
 
 
 def rodar_varias_vezes(required_edges, required_arcs, required_vertices,

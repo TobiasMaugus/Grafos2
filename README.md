@@ -22,8 +22,10 @@
 > - `parte2_grafos.py`: Algoritmo de Savings, geração de rotas, e escolha da melhor solução.
 > - `Testes/`: Contém os arquivos `.dat` com instâncias do problema.
 > - `Resultados/`: Armazena os arquivos de saída gerados com as melhores soluções.
+> - `G9`: Armazena os arquivos de saída gerados com a melhoria das soluções do algoritmo de Savings.
 > - `seeds.dat`: Armazena oas seeds de melhor solução aleatória para cada instância.
-
+> - `melhoria.py`: Implementação do algoritmo de 2opt para melhorar as rotas geradas.
+> - `comparacoes.dat`: Contém as comparações entre as soluções melhoradas e as soluções ótimas geradas pelo metodo de Clarke-Wright Savings.
 ---
 
 ## Como Executar?
@@ -37,6 +39,7 @@
 >>1. Coloque os arquivos `.dat` na pasta `Testes`.
 >>2. Execute o script principal:
 >>3. A saída com as melhores soluções será salva automaticamente na pasta `Resultados/`.
+>>4. As soluções melhoradas serão salvas na pasta `G9/`.
 ---
 
 ## Funcionalidades

@@ -122,7 +122,7 @@ for file in folder.iterdir():
     clock_fim_melhoria = time.perf_counter_ns()
     clock_melhor_solucao_melhorado = clock_fim_melhoria - clock_inicio_total
 
-    nome_saida_melhorada = saida_melhorada / f"sol-{nome_base}_melhorada.dat"
+    nome_saida_melhorada = saida_melhorada / f"sol-{nome_base}.dat"
     clock_fim_total_melhorado = time.perf_counter_ns()
     clock_total_melhorado = clock_fim_total_melhorado - clock_inicio_total
     ciclos_estimados_total_melhorado = int(clock_total_melhorado * (freq_hz / 1_000_000_000))
@@ -150,5 +150,7 @@ for file in folder.iterdir():
     
 
 media = (le.escrita_comparacao(arquivos, custos, custos_melhorados) * 100)
-print (f'{media:.2f}%')
+print (f'media das melhorias: {media:.2f}%')
+percentual_melhoria_total=(((sum(custos)-sum(custos_melhorados))/sum(custos))*100)
+print (f'percentual de melhoria total: {percentual_melhoria_total:.2f}%')
 le.escrita_seeds(dados_metricas)

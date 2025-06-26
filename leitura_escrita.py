@@ -1,4 +1,3 @@
-import  matplotlib.pyplot as plt
 import parte2_grafos as p2
 
 def read_file(file_path):
@@ -205,18 +204,3 @@ def escrita_comparacao(arquivos, custos, custo_melhorados):
             f.write(f"{arquivo}, {melhoria}\n")
             soma += melhoria
     return soma / len(arquivos) if arquivos else 0
-
-def func_teste():
-    x = [1, 2, 3, 4]
-    y1 = [10, 20, 25, 30]
-    y2 = [5, 15, 20, 22]
-
-    plt.plot(x, y1, label='Série 1')
-    plt.plot(x, y2, label='Série 2')
-
-    plt.xlabel('Eixo X')
-    plt.ylabel('Eixo Y')
-    plt.title('Gráfico com Labels')
-    plt.legend()  # Mostra as labels no gráfico
-
-    plt.show()
