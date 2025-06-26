@@ -152,4 +152,3 @@ for file in folder.iterdir():
 media = (le.escrita_comparacao(arquivos, custos, custos_melhorados) * 100)
 print (f'{media:.2f}%')
 le.escrita_seeds(dados_metricas)
-le.func_teste()
