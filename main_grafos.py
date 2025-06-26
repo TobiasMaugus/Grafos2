@@ -8,7 +8,7 @@ import melhoria
 
 folder = Path('./Testes')          # pasta com os arquivos .dat de entrada
 saida = Path('./Resultados')       # pasta para arquivos de saída
-saida_melhorada = Path('./Resultados_melhoria')  # pasta para arquivos de saída da melhoria
+saida_melhorada = Path('./G9')  # pasta para arquivos de saída da melhoria
 folder.mkdir(exist_ok=True)
 saida.mkdir(exist_ok=True)
 
@@ -152,3 +152,4 @@ for file in folder.iterdir():
 media = (le.escrita_comparacao(arquivos, custos, custos_melhorados) * 100)
 print (f'{media:.2f}%')
 le.escrita_seeds(dados_metricas)
+le.func_teste()
