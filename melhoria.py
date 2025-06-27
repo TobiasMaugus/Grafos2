@@ -1,39 +1,42 @@
 import parte2_grafos as p2
 
-def aplicar_2opt_em_rota(rota, tarefas, depot_node, matriz_predecessores, matriz_distancias):
-    tarefas_seq = rota['tarefas'][:] 
+def aplicar_2opt_em_rota(rota, tarefas, depot_node, matriz_predecessores, matriz_distancias, max_sem_melhoria=15):
+    tarefas_seq = rota['tarefas'][:]
     melhor_seq = tarefas_seq[:]
-    melhor_rota_completa = p2.construir_rota_completa(tarefas, melhor_seq, depot_node, matriz_predecessores) #
+    melhor_rota_completa = p2.construir_rota_completa(tarefas, melhor_seq, depot_node, matriz_predecessores)
     melhor_custo = calcular_custo_rota_completa(melhor_rota_completa, matriz_distancias)
 
-    melhorou = True
-    while melhorou:
-        melhorou = False
+    sem_melhoria_count = 0
+    while sem_melhoria_count < max_sem_melhoria:
+        melhoria_feita = False
         n = len(melhor_seq)
         for i in range(1, n - 1):
             for j in range(i + 1, n):
                 if j - i == 1:
-                    continue  
+                    continue  # Ignora adjacentes
 
                 nova_seq = melhor_seq[:i] + melhor_seq[i:j][::-1] + melhor_seq[j:]
                 nova_rota_completa = p2.construir_rota_completa(tarefas, nova_seq, depot_node, matriz_predecessores)
-
-                
                 novo_custo = calcular_custo_rota_completa(nova_rota_completa, matriz_distancias)
 
                 if novo_custo < melhor_custo:
                     melhor_seq = nova_seq
                     melhor_rota_completa = nova_rota_completa
                     melhor_custo = novo_custo
-                    melhorou = True
-                    break
-            if melhorou:
+                    melhoria_feita = True
+                    break  # First improvement
+            if melhoria_feita:
                 break
 
-    # Atualiza a rota original
+        if melhoria_feita:
+            sem_melhoria_count = 0
+        else:
+            sem_melhoria_count += 1
+
     rota['tarefas'] = melhor_seq
     rota['rota_completa'] = melhor_rota_completa
     return rota
+
 
 
 def calcular_custo_rota_completa(rota_completa, matriz_distancias):
